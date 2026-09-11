@@ -1,0 +1,10 @@
+{
+  "name": "fizzl-digital-twin-evaluation",
+  "private": true,
+  "scripts": {
+    "test": "node run-tests.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
