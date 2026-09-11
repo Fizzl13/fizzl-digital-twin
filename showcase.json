@@ -1,0 +1,32 @@
+{
+  "name": "FIZZL DIGITAL TWIN",
+  "tagline": "Ask questions. Explore experience. Discover how I think, work and create.",
+  "status": "PROTOTYPE / LIVE DEMO READY",
+  "url": "https://ai.fizzl.eu",
+  "project_type": "Grounded AI professional profile",
+  "stack": [
+    "Claude API",
+    "RAG",
+    "Semantic retrieval",
+    "Session memory",
+    "Node.js",
+    "HTML/CSS/JavaScript",
+    "Automated evaluation",
+    "Security controls"
+  ],
+  "features": [
+    "Grounded answers from a structured Knowledge Base",
+    "Context-aware follow-up questions",
+    "Confidence and source metadata",
+    "Anti-hallucination rules",
+    "Automated regression tests",
+    "Server-side API key handling",
+    "Rate limiting and origin controls"
+  ],
+  "demo_questions": [
+    "Welke ervaring heeft Frits met klantretentie?",
+    "Welke commerciële resultaten behaalde Frits?",
+    "Welke technische skills heeft Frits?",
+    "What makes Frits a good fit for a Customer Success role?"
+  ]
+}
