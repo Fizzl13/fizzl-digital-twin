@@ -1,6 +1,6 @@
 # FIZZL DIGITAL TWIN
 
-A grounded AI professional profile that makes a CV conversational.
+A grounded AI professional profile that makes a CV conversational. Step 19 adds cold-start resilience for the live Render API.
 
 ## What it does
 Visitors can ask questions about documented experience, skills, work style and projects. The system uses a controlled knowledge base and is designed not to invent qualifications or experience.

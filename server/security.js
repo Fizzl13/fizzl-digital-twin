@@ -45,6 +45,18 @@ function allowedOrigin(req) {
   return false;
 }
 
+function applyCorsHeaders(req, res) {
+  const origin = req.headers.origin;
+  if (!origin) return true;
+  if (!allowedOrigin(req)) return false;
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Vary", "Origin");
+  res.setHeader("Access-Control-Allow-Methods", "POST, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Max-Age", "600");
+  return true;
+}
+
 function applySecurityHeaders(res) {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
@@ -67,5 +79,6 @@ module.exports = {
   bodyAllowed,
   allowedOrigin,
   applySecurityHeaders,
+  applyCorsHeaders,
   safeEqual
 };

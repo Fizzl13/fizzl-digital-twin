@@ -4,16 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const { retrieve, formatContext } = require("./vector-rag");
 const {
-  rateLimit, bodyAllowed, allowedOrigin, applySecurityHeaders
+  rateLimit, bodyAllowed, allowedOrigin, applySecurityHeaders, applyCorsHeaders
 } = require("./security");
 
 const PORT = Number(process.env.PORT || 3000);
+const ROOT_DIR = path.join(__dirname, "..");
 const MAX_HISTORY = 8;
 const SESSION_TTL_MS = 30 * 60 * 1000;
 const sessions = new Map();
 
 function loadKnowledge() {
-  const file = path.join(__dirname, "..", "knowledge-base.json");
+  const file = path.join(ROOT_DIR, "knowledge-base.json");
   if (!fs.existsSync(file)) throw new Error("Knowledge Base not found");
   return JSON.parse(fs.readFileSync(file, "utf8"));
 }
@@ -156,6 +157,16 @@ const server = http.createServer(async (req, res) => {
   applySecurityHeaders(res);
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
+  if (!applyCorsHeaders(req, res)) {
+    res.writeHead(403);
+    return res.end(JSON.stringify({error: "Origin not allowed."}));
+  }
+
+  if (req.method === "OPTIONS") {
+    res.writeHead(204);
+    return res.end();
+  }
+
   if (!rateLimit(req)) {
     res.writeHead(429, {"Retry-After": "60"});
     return res.end(JSON.stringify({error: "Too many requests. Please try again later."}));
@@ -173,6 +184,52 @@ const server = http.createServer(async (req, res) => {
 
   try {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+
+    if (req.method === "GET" && url.pathname === "/health") {
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.writeHead(200);
+      return res.end(JSON.stringify({ok: true, service: "fizzl-digital-twin", status: "online"}));
+    }
+
+    // Serve the browser UI from the same Render service as the API.
+    // Keep this allowlist intentionally narrow so private server files are never exposed.
+    if (req.method === "GET") {
+      const staticFiles = {
+        "/": ["index.html", "text/html; charset=utf-8"],
+        "/index.html": ["index.html", "text/html; charset=utf-8"],
+        "/style.css": ["style.css", "text/css; charset=utf-8"],
+        "/js/app.js": ["js/app.js", "text/javascript; charset=utf-8"],
+        "/js/app-v6.js": ["js/app-v6.js", "text/javascript; charset=utf-8"],
+        "/evaluation": ["evaluation/index.html", "text/html; charset=utf-8"],
+        "/evaluation/": ["evaluation/index.html", "text/html; charset=utf-8"],
+        "/evaluation/index.html": ["evaluation/index.html", "text/html; charset=utf-8"],
+        "/evaluation/evaluation-suite.json": ["evaluation/evaluation-suite.json", "application/json; charset=utf-8"],
+        "/showcase": ["showcase/index.html", "text/html; charset=utf-8"],
+        "/showcase/": ["showcase/index.html", "text/html; charset=utf-8"],
+        "/showcase/index.html": ["showcase/index.html", "text/html; charset=utf-8"],
+        "/showcase.json": ["showcase.json", "application/json; charset=utf-8"]
+      };
+      // Render homepage: always resolve the UI from the repository root.
+      // This avoids relying on the working directory and prevents a false 404 at /.
+      if (url.pathname === "/" || url.pathname === "") {
+        const home = path.join(ROOT_DIR, "index.html");
+        if (fs.existsSync(home) && fs.statSync(home).isFile()) {
+          res.setHeader("Content-Type", "text/html; charset=utf-8");
+          res.writeHead(200);
+          return fs.createReadStream(home).pipe(res);
+        }
+      }
+
+      const entry = staticFiles[url.pathname];
+      if (entry) {
+        const filePath = path.join(ROOT_DIR, entry[0]);
+        if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+          res.setHeader("Content-Type", entry[1]);
+          res.writeHead(200);
+          return fs.createReadStream(filePath).pipe(res);
+        }
+      }
+    }
 
     if (req.method === "DELETE" && url.pathname === "/api/chat") {
       const id = String(url.searchParams.get("conversationId") || "").slice(0, 120);
