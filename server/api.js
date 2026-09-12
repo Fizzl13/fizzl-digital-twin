@@ -172,12 +172,12 @@ async function handleChat(body) {
   const decisionGuidance = formatGuidance(question, kb);
   const scenarioFramework = formatScenario(question, kb);
   const actionPlan = formatActionPlan(question, kb);
-const responseMode = detectResponseMode({
-      question,
-      intent: decision?.type || intent,
-      scenario,
-      actionPlan
-    });
+  const responseMode = detectResponseMode({
+    question,
+    intent,
+    scenario: Boolean(scenarioFramework),
+    actionPlan: Boolean(actionPlan)
+  });
 
   const system = `
 You are FIZZL DIGITAL TWIN — a professional AI representation of Frits Zwager.
@@ -246,6 +246,7 @@ ${actionPlan}
     answer: stripModelMetadata(result.answer),
     sources: displaySources(retrieved),
     confidence,
+    responseMode: responseMode.mode,
     conversationId
   };
 }
