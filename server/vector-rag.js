@@ -43,6 +43,7 @@ function detectIntent(question) {
   if (has("projecten")) return "projects";
   if (has("opleiding")) return "education";
   if (has("werkstijl")) return "work_style";
+  if (/wanneer.*ai|ai.*inzet|automatis|human.?in.?the.?loop|mens.*nodig|priorit|beslis|beslissing|hoe.*aanpak|werkwijze|feedback.*ai|ai.*feedback|leren.*ai/.test(q)) return "decision_model";
   return "general";
 }
 
@@ -79,6 +80,17 @@ function buildDocuments(kb) {
   docs.push(makeDoc("projects", `${(kb.projects?.documented_projects || []).join(", ")}. ${kb.projects?.note || ""}`, "projects", 1.2));
   (kb.education || []).forEach((e, i) => docs.push(makeDoc(`education.${i}`, `${e.program} — ${e.institution}${e.location ? `, ${e.location}` : ""}`, "education", 1.4)));
   docs.push(makeDoc("work_style", `${(kb.work_style?.documented_strengths || []).join(", ")}. ${kb.work_style?.evidence_based_note || ""}`, "work_style", 1.3));
+
+  const dm = kb.decision_model || {};
+  docs.push(makeDoc("decision_model.purpose", dm.purpose || "", "decision_model", 2.0));
+  docs.push(makeDoc("decision_model.problem_solving", (dm.problem_solving || []).join(". "), "decision_model", 2.0));
+  docs.push(makeDoc("decision_model.ai_automation_gate", JSON.stringify(dm.ai_automation_gate || {}), "decision_model", 2.2));
+  docs.push(makeDoc("decision_model.customer_decision_flow", (dm.customer_decision_flow || []).join(" → "), "decision_model", 2.2));
+  docs.push(makeDoc("decision_model.priority_signals", (dm.priority_signals || []).join(", "), "decision_model", 1.9));
+  docs.push(makeDoc("decision_model.learning_loop", (dm.learning_loop || []).join(" → "), "decision_model", 2.0));
+  docs.push(makeDoc("decision_model.human_value", (dm.human_value || []).join(", "), "decision_model", 1.8));
+  docs.push(makeDoc("decision_model.business_goals", (dm.business_goals || []).join(", "), "decision_model", 1.8));
+  docs.push(makeDoc("decision_model.future_vision", dm.future_vision || "", "decision_model", 1.5));
 
   return docs;
 }
@@ -129,6 +141,7 @@ function scoreDocument(queryTokens, question, doc, intent) {
     projects: {projects: 7, experience: 1},
     education: {education: 7},
     work_style: {work_style: 7, experience: 1},
+    decision_model: {decision_model: 9, ai: 2, work_style: 1, sales: 1},
     general: {}
   }[intent] || {};
   score += sectionBoost[doc.section] || 0;

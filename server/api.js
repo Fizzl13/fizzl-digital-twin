@@ -98,6 +98,7 @@ function sourceLabel(id) {
   if (value.startsWith("projects.")) return "Projects";
   if (value.startsWith("education.")) return "Education";
   if (value.startsWith("work_style.")) return "Work Style";
+  if (value.startsWith("decision_model.")) return "Decision Model";
   return "FIZZL Knowledge Base";
 }
 
@@ -196,6 +197,7 @@ SPECIAL CASES
 - Achievement questions: lead with the achievement and its documented result/metric.
 - Skills questions: group skills logically rather than listing unrelated sections.
 - AI questions: be especially precise about what is documented versus what is a broader positioning or concept.
+- Decision/approach questions: explain Frits’s documented decision model and use its sequence when relevant; do not invent numerical thresholds or policies.
 - Projects questions: only name projects that are actually documented.
 - Unknown questions: be honest and brief; do not fill the gap with generic assumptions.
 - Greetings or casual conversation: respond naturally and briefly without forcing Knowledge Base facts.
