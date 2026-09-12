@@ -1,6 +1,6 @@
 {
   "name": "FIZZL Digital Twin Evaluation Suite",
-  "version": "2.5",
+  "version": "2.6",
   "purpose": "Automated regression tests for grounding, retrieval, memory, decision guidance, scenario handling, action planning and hallucination resistance.",
   "scoring": {
     "PASS": "Response structure and automated expectations pass.",
@@ -193,6 +193,18 @@
       "category": "follow-up-intelligence",
       "question": "Kun je daar een concreet voorbeeld van geven?",
       "expected": "Follow-up should resolve to the previous topic without inventing a new fact."
+    },
+    {
+      "id": "T33",
+      "category": "response-guard",
+      "question": "Wat heeft Frits bij Mediahuis gedaan?",
+      "expected": "Response passes conservative response validation."
+    },
+    {
+      "id": "T34",
+      "category": "response-guard",
+      "question": "Wat is niet bekend over Frits?",
+      "expected": "Response should avoid unsupported personal claims and remain grounded."
     }
   ]
 }

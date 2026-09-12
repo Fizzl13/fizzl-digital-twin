@@ -1,3 +1,4 @@
+const { validateResponse, buildGuardFallback } = require('./response-guard');
 const { resolveFollowUp } = require('./follow-up');
 const { buildGraphContext } = require('./knowledge-graph');
 const { buildPublicTrace } = require('./public-trace');
@@ -91,6 +92,11 @@ async function callClaude(system, messages) {
   if (!response.ok) throw new Error(data?.error?.message || "Claude request failed");
   const answer = (data.content || [])
     .filter(x => x.type === "text").map(x => x.text).join("\n").trim();
+  const responseGuard = validateResponse(answer, context);
+  if (!responseGuard.ok) {
+    answer = buildGuardFallback();
+  }
+
 
   return {answer: stripModelMetadata(answer), sources: ["knowledge-base.json"]};
 }
@@ -291,7 +297,8 @@ ${actionPlan}
     responseMode: responseMode.mode,
     trace: publicTrace,
     followUpResolved: Boolean(followUpContext?.resolved),
-    conversationId
+        responseGuard: responseGuard || { ok: true, issues: [], length: String(answer || '').length },
+conversationId
   };
 }
 

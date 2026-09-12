@@ -49,6 +49,12 @@ function runHeuristic(test, data) {
     }
   }
 
+  if (test.category === "response-guard") {
+    if (data.responseGuard && data.responseGuard.ok === false) {
+      return {status:"REVIEW", reason:"Response guard rejected the generated response."};
+    }
+  }
+
   if (test.category === "follow-up-intelligence") {
     if (typeof data.followUpResolved !== "boolean") {
       return {status:"REVIEW", reason:"Follow-up resolution metadata is missing."};
