@@ -157,14 +157,23 @@ const server = http.createServer(async (req, res) => {
   applySecurityHeaders(res);
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
-  if (!applyCorsHeaders(req, res)) {
-    res.writeHead(403);
-    return res.end(JSON.stringify({error: "Origin not allowed."}));
-  }
+  // CORS is only relevant to API requests. Static browser assets such as
+  // /js/app.js must be publicly readable by the same Render service and
+  // should never be rejected because of an Origin header.
+  const isApiRequest = req.url === "/api/chat" || String(req.url || "").startsWith("/api/");
 
   if (req.method === "OPTIONS") {
+    if (!applyCorsHeaders(req, res)) {
+      res.writeHead(403);
+      return res.end(JSON.stringify({error: "Origin not allowed."}));
+    }
     res.writeHead(204);
     return res.end();
+  }
+
+  if (isApiRequest && !applyCorsHeaders(req, res)) {
+    res.writeHead(403);
+    return res.end(JSON.stringify({error: "Origin not allowed."}));
   }
 
   if (!rateLimit(req)) {
@@ -175,6 +184,11 @@ const server = http.createServer(async (req, res) => {
   if (!bodyAllowed(req)) {
     res.writeHead(413);
     return res.end(JSON.stringify({error: "Request body too large."}));
+  }
+
+  if (isApiRequest && !allowedOrigin(req)) {
+    res.writeHead(403);
+    return res.end(JSON.stringify({error: "Origin not allowed."}));
   }
 
   try {
@@ -227,10 +241,6 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "DELETE" && url.pathname === "/api/chat") {
-      if (!allowedOrigin(req)) {
-        res.writeHead(403);
-        return res.end(JSON.stringify({error: "Origin not allowed."}));
-      }
       const id = String(url.searchParams.get("conversationId") || "").slice(0, 120);
       if (id) sessions.delete(id);
       res.writeHead(200);
@@ -238,10 +248,6 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "POST" && url.pathname === "/api/chat") {
-      if (!allowedOrigin(req)) {
-        res.writeHead(403);
-        return res.end(JSON.stringify({error: "Origin not allowed."}));
-      }
       const body = await readJson(req);
       const result = await handleChat(body);
       res.writeHead(200);

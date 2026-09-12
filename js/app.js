@@ -29,7 +29,7 @@ function setStatus(text) {
   if (retrieval) retrieval.textContent = text;
 }
 
-const API_BASE = window.FIZZL_API_BASE || "https://fizzl-digital-twin.onrender.com";
+const API_BASE = window.FIZZL_API_BASE || "";
 
 async function fetchWithTimeout(url, options = {}, timeoutMs = 12000) {
   const controller = new AbortController();
@@ -123,9 +123,22 @@ async function sendQuestion(question) {
   }
 }
 
-form?.addEventListener("submit", (event) => {
-  event.preventDefault();
+const askButton = document.querySelector("#ask-button");
+
+function askFromInput() {
   sendQuestion(input.value.trim());
+}
+
+askButton?.addEventListener("click", (event) => {
+  event.preventDefault();
+  askFromInput();
+});
+
+input?.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    askFromInput();
+  }
 });
 
 exampleButtons.forEach(btn => {

@@ -38,10 +38,16 @@ function allowedOrigin(req) {
   const configured = String(process.env.ALLOWED_ORIGINS || "")
     .split(",").map(x => x.trim()).filter(Boolean);
 
-  // If configured, require an exact allowlisted origin.
+  // Always allow the service to call its own API from the same origin.
+  // Render exposes the service host through Host and X-Forwarded-Proto.
+  const proto = String(req.headers["x-forwarded-proto"] || "https").split(",")[0].trim();
+  const host = String(req.headers.host || "").trim();
+  const sameOrigin = host && `${proto}://${host}` === origin;
+  if (sameOrigin) return true;
+
+  // If configured, require an exact allowlisted external origin.
   if (configured.length) return configured.includes(origin);
 
-  // Safe default for same-origin requests during local development.
   return false;
 }
 
