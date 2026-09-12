@@ -1,6 +1,6 @@
 {
   "name": "FIZZL Digital Twin Evaluation Suite",
-  "version": "2.1",
+  "version": "2.2",
   "purpose": "Automated regression tests for grounding, retrieval, memory, decision guidance, scenario handling, action planning and hallucination resistance.",
   "scoring": {
     "PASS": "Response structure and automated expectations pass.",
@@ -151,6 +151,18 @@
       "category": "adaptive",
       "question": "Maak een stappenplan voor het automatiseren van een klantproces.",
       "expected": "Concrete ordered action plan."
+    },
+    {
+      "id": "T25",
+      "category": "observability",
+      "question": "Wat is het doel van de Digital Twin?",
+      "expected": "Normal answer while observability records metadata only."
+    },
+    {
+      "id": "T26",
+      "category": "observability",
+      "question": "Wanneer blijft menselijke controle belangrijk?",
+      "expected": "Normal answer and human-control telemetry."
     }
   ]
 }
