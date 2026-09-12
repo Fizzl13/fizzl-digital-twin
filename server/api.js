@@ -177,11 +177,6 @@ const server = http.createServer(async (req, res) => {
     return res.end(JSON.stringify({error: "Request body too large."}));
   }
 
-  if (!allowedOrigin(req)) {
-    res.writeHead(403);
-    return res.end(JSON.stringify({error: "Origin not allowed."}));
-  }
-
   try {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
 
@@ -232,6 +227,10 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "DELETE" && url.pathname === "/api/chat") {
+      if (!allowedOrigin(req)) {
+        res.writeHead(403);
+        return res.end(JSON.stringify({error: "Origin not allowed."}));
+      }
       const id = String(url.searchParams.get("conversationId") || "").slice(0, 120);
       if (id) sessions.delete(id);
       res.writeHead(200);
@@ -239,6 +238,10 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "POST" && url.pathname === "/api/chat") {
+      if (!allowedOrigin(req)) {
+        res.writeHead(403);
+        return res.end(JSON.stringify({error: "Origin not allowed."}));
+      }
       const body = await readJson(req);
       const result = await handleChat(body);
       res.writeHead(200);
