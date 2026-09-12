@@ -74,6 +74,54 @@ async function checkHealth(options = {}) {
   return false;
 }
 
+
+function addPipelineTrace(container, trace = []) {
+  if (!container || !Array.isArray(trace) || !trace.length) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "pipeline-trace";
+  wrap.setAttribute("aria-label", "AI processing pipeline");
+
+  const title = document.createElement("div");
+  title.className = "pipeline-title";
+  title.textContent = "AI PIPELINE";
+  wrap.appendChild(title);
+
+  const stages = document.createElement("div");
+  stages.className = "pipeline-stages";
+
+  trace.forEach((stage, index) => {
+    const item = document.createElement("div");
+    item.className = `pipeline-stage ${stage.status || "complete"}`;
+
+    const dot = document.createElement("span");
+    dot.className = "pipeline-dot";
+    dot.textContent = stage.status === "no_match" ? "!" : (stage.status === "not_needed" ? "—" : "✓");
+
+    const name = document.createElement("span");
+    name.className = "pipeline-name";
+    name.textContent = String(stage.stage || "").replace(/_/g, " ").toUpperCase();
+
+    item.append(dot, name);
+    stages.appendChild(item);
+
+    if (index < trace.length - 1) {
+      const arrow = document.createElement("span");
+      arrow.className = "pipeline-arrow";
+      arrow.textContent = "→";
+      stages.appendChild(arrow);
+    }
+  });
+
+  const note = document.createElement("div");
+  note.className = "pipeline-note";
+  note.textContent = "High-level architecture only · no private data or hidden reasoning";
+  wrap.appendChild(stages);
+  wrap.appendChild(note);
+
+  container.appendChild(wrap);
+}
+
 async function sendQuestion(question) {
   if (!question || state.busy) return;
   state.busy = true;
@@ -109,6 +157,7 @@ async function sendQuestion(question) {
         ? `GROUNDED${confidence} · ${sourceNames.slice(0, 3).join(" · ")}`
         : `GROUNDED${confidence} · KNOWLEDGE BASE`;
     }
+    addPipelineTrace(typing, data.trace);
     setStatus("GROUNDED");
   } catch (error) {
     typing.querySelector(".message-text").textContent =

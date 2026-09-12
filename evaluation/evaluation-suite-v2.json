@@ -1,6 +1,6 @@
 {
   "name": "FIZZL Digital Twin Evaluation Suite",
-  "version": "2.4",
+  "version": "2.5",
   "purpose": "Automated regression tests for grounding, retrieval, memory, decision guidance, scenario handling, action planning and hallucination resistance.",
   "scoring": {
     "PASS": "Response structure and automated expectations pass.",
@@ -175,6 +175,12 @@
       "category": "knowledge-graph",
       "question": "Hoe hangen Frits' AI-visie, automatisering en human-in-the-loop samen?",
       "expected": "Should explain documented relationships and retain human control."
+    },
+    {
+      "id": "T31",
+      "category": "visual-pipeline",
+      "question": "Wat zijn de belangrijkste skills van Frits?",
+      "expected": "Frontend can render the safe trace returned by the API."
     }
   ]
 }
