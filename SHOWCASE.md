@@ -28,11 +28,3 @@ a static CV.
 ## Next
 The next step should connect this project to `projects.fizzl.eu` and `cv.fizzl.eu`,
 with a single polished project card and a clear GitHub/demo call-to-action.
-
-
-## Step 37 — Public Architecture Trace
-
-The chat API now returns a safe `trace` object showing the processing stages at a high level:
-Question → Knowledge Retrieval → Intent → Decision → Scenario → Action Planning → Response.
-
-The trace contains only stage status and high-level metadata. It does not expose prompts, private conversation content, retrieved text, hidden reasoning or chain-of-thought.

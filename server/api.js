@@ -247,7 +247,6 @@ ${actionPlan}
     scenarioFramework,
     actionPlan,
     responseMode: responseMode.mode,
-    trace: publicTrace,
     confidence
   });
 
@@ -275,6 +274,7 @@ ${actionPlan}
     sources,
     confidence,
     responseMode: responseMode.mode,
+    trace: publicTrace,
     conversationId
   };
 }
