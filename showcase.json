@@ -22,12 +22,15 @@
     "Automated regression tests",
     "Server-side API key handling",
     "Rate limiting and origin controls",
-    "Decision Engine — applies documented professional decision principles to practical scenarios."
+    "Decision Engine — applies documented professional decision principles to practical scenarios.",
+    "Scenario Engine — translates documented decision principles into practical business-process scenarios."
   ],
   "demo_questions": [
     "Welke ervaring heeft Frits met klantretentie?",
     "Welke commerciële resultaten behaalde Frits?",
     "Welke technische skills heeft Frits?",
-    "What makes Frits a good fit for a Customer Success role?"
+    "What makes Frits a good fit for a Customer Success role?",
+    "Hoe zou Frits een inefficiënt klantenserviceproces met AI aanpakken?",
+    "Hoe zou Frits bepalen welke klant als eerste aandacht nodig heeft?"
   ]
 }
