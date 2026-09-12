@@ -1,4 +1,4 @@
-const { recordResponse, recordError } = require('./observability');
+const { recordResponse, recordError, snapshot } = require('./observability');
 const { detectResponseMode } = require('./adaptive-response');
 
 const http = require("http");
@@ -175,9 +175,6 @@ async function handleChat(body) {
   const scenarioFramework = formatScenario(question, kb);
   const actionPlan = formatActionPlan(question, kb);
   const responseMode = detectResponseMode({
-const humanControlDetected =
-      /financ|rekening|menselijke controle|human control|human-in-the-loop|mens nodig/i.test(String(answer || "")) ||
-      /financ|rekening|mens/i.test(String(question || ""));
     question,
     intent,
     scenario: Boolean(scenarioFramework),
@@ -240,6 +237,12 @@ ${actionPlan}
     {role: "user", content: question}
   ]);
 
+  const cleanAnswer = stripModelMetadata(result.answer);
+  const sources = displaySources(retrieved);
+  const humanControlDetected =
+    /financ|rekening|menselijke controle|human control|human-in-the-loop|mens nodig|human judgment/i.test(cleanAnswer) ||
+    /financ|rekening/i.test(question);
+
   session.messages = trimHistory([
     ...session.messages,
     {role: "user", content: question},
@@ -247,19 +250,32 @@ ${actionPlan}
   ]);
   session.updatedAt = Date.now();
 
+  recordResponse({
+    responseMode: responseMode?.mode || "direct",
+    confidence,
+    sources,
+    humanControl: humanControlDetected,
+    latencyMs: Date.now() - requestStartedAt
+  });
+
   return {
-    answer: stripModelMetadata(result.answer),
-    sources: displaySources(retrieved),
-    confidence,      recordResponse({
-        responseMode: responseMode?.mode || "direct",
-        confidence,
-        sources,
-        humanControl: humanControlDetected,
-        latencyMs: Date.now() - requestStartedAt
-      });
+    answer: cleanAnswer,
+    sources,
+    confidence,
     responseMode: responseMode.mode,
     conversationId
   };
+}
+
+
+function handleMetrics(req, res) {
+  const token = process.env.METRICS_TOKEN;
+  if (token && req.headers["x-metrics-token"] !== token) {
+    res.writeHead(403, {"Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store"});
+    return res.end(JSON.stringify({error: "Forbidden"}));
+  }
+  res.writeHead(200, {"Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store"});
+  return res.end(JSON.stringify(snapshot()));
 }
 
 const server = http.createServer(async (req, res) => {
@@ -302,7 +318,10 @@ const server = http.createServer(async (req, res) => {
 
   try {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
-    if (req.url === "/internal/metrics") return handleMetrics(req, res);
+
+    if (req.method === "GET" && url.pathname === "/internal/metrics") {
+      return handleMetrics(req, res);
+    }
 
     if (req.method === "GET" && url.pathname === "/health") {
       res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -367,7 +386,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(404);
     res.end(JSON.stringify({error: "Not found"}));
   } catch (error) {
-      recordError();
+    recordError();
     console.error(error);
     res.writeHead(500);
     res.end(JSON.stringify({error: "Internal server error"}));
@@ -375,14 +394,3 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => console.log(`FIZZL Digital Twin API listening on ${PORT}`));
-
-
-function handleMetrics(req, res) {
-  const token = process.env.METRICS_TOKEN;
-  if (token && req.headers["x-metrics-token"] !== token) {
-    res.writeHead(403, {"content-type":"application/json"});
-    return res.end(JSON.stringify({error:"Forbidden"}));
-  }
-  res.writeHead(200, {"content-type":"application/json", "cache-control":"no-store"});
-  res.end(JSON.stringify(require("./observability").snapshot()));
-}
