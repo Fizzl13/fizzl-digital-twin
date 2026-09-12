@@ -1,3 +1,4 @@
+const { buildGraphContext } = require('./knowledge-graph');
 const { buildPublicTrace } = require('./public-trace');
 const { recordResponse, recordError, snapshot } = require('./observability');
 const { detectResponseMode } = require('./adaptive-response');
@@ -171,6 +172,7 @@ async function handleChat(body) {
   const intent = detectIntent(question);
   const retrieved = retrieve(retrievalQuery, kb, 6);
   const context = formatContext(retrieved) || JSON.stringify(kb, null, 2);
+  const graphContext = buildGraphContext(question, ROOT_DIR);
   const confidence = estimateConfidence(question, retrieved);
   const decisionGuidance = formatGuidance(question, kb);
   const scenarioFramework = formatScenario(question, kb);
@@ -225,6 +227,8 @@ Do not append confidence or source metadata to your answer; the application adds
 
 KNOWLEDGE BASE CONTEXT:
 ${context}
+
+${graphContext}
 
 ${decisionGuidance}
 

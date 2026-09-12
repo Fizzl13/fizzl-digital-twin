@@ -155,4 +155,10 @@ async function main() {
 main().catch(err => {
   console.error(err);
   process.exit(1);
-});
+});  if (test.category === "knowledge-graph") {
+    if (!containsAny(answer, ["mediahuis","retentie","salesforce","ai","automatisering","mens"])) {
+      return {status:"REVIEW", reason:"Graph relationship test lacks expected documented concepts."};
+    }
+  }
+
+

@@ -1,0 +1,162 @@
+{
+  "version": "1.0",
+  "nodes": [
+    {
+      "id": "frits",
+      "label": "Frits Zwager",
+      "type": "person"
+    },
+    {
+      "id": "mediahuis",
+      "label": "Mediahuis",
+      "type": "company"
+    },
+    {
+      "id": "customer_success",
+      "label": "Customer Success",
+      "type": "domain"
+    },
+    {
+      "id": "sales",
+      "label": "Sales",
+      "type": "domain"
+    },
+    {
+      "id": "retention",
+      "label": "Customer retention",
+      "type": "outcome"
+    },
+    {
+      "id": "salesforce",
+      "label": "Salesforce CRM",
+      "type": "tool"
+    },
+    {
+      "id": "startups_web3",
+      "label": "Startups & Web3",
+      "type": "experience"
+    },
+    {
+      "id": "commercial_consulting",
+      "label": "Commercial Consulting",
+      "type": "domain"
+    },
+    {
+      "id": "ai",
+      "label": "AI",
+      "type": "domain"
+    },
+    {
+      "id": "automation",
+      "label": "Process automation",
+      "type": "concept"
+    },
+    {
+      "id": "human_loop",
+      "label": "Human-in-the-loop",
+      "type": "principle"
+    },
+    {
+      "id": "customer_satisfaction",
+      "label": "Customer satisfaction",
+      "type": "outcome"
+    },
+    {
+      "id": "digital_twin",
+      "label": "FIZZL Digital Twin",
+      "type": "project"
+    },
+    {
+      "id": "rag",
+      "label": "RAG / semantic retrieval",
+      "type": "technology"
+    },
+    {
+      "id": "claude",
+      "label": "Claude API",
+      "type": "technology"
+    }
+  ],
+  "edges": [
+    [
+      "frits",
+      "works_at",
+      "mediahuis"
+    ],
+    [
+      "mediahuis",
+      "involves",
+      "customer_success"
+    ],
+    [
+      "mediahuis",
+      "involves",
+      "sales"
+    ],
+    [
+      "frits",
+      "focuses_on",
+      "retention"
+    ],
+    [
+      "frits",
+      "uses",
+      "salesforce"
+    ],
+    [
+      "frits",
+      "has_experience_in",
+      "startups_web3"
+    ],
+    [
+      "startups_web3",
+      "includes",
+      "commercial_consulting"
+    ],
+    [
+      "frits",
+      "works_with",
+      "ai"
+    ],
+    [
+      "ai",
+      "can_enable",
+      "automation"
+    ],
+    [
+      "automation",
+      "requires",
+      "human_loop"
+    ],
+    [
+      "human_loop",
+      "protects",
+      "customer_satisfaction"
+    ],
+    [
+      "frits",
+      "aims_for",
+      "customer_satisfaction"
+    ],
+    [
+      "frits",
+      "builds",
+      "digital_twin"
+    ],
+    [
+      "digital_twin",
+      "uses",
+      "rag"
+    ],
+    [
+      "digital_twin",
+      "uses",
+      "claude"
+    ],
+    [
+      "digital_twin",
+      "supports",
+      "human_loop"
+    ]
+  ]
+}

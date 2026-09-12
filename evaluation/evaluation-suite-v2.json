@@ -1,6 +1,6 @@
 {
   "name": "FIZZL Digital Twin Evaluation Suite",
-  "version": "2.2",
+  "version": "2.4",
   "purpose": "Automated regression tests for grounding, retrieval, memory, decision guidance, scenario handling, action planning and hallucination resistance.",
   "scoring": {
     "PASS": "Response structure and automated expectations pass.",
@@ -163,6 +163,18 @@
       "category": "observability",
       "question": "Wanneer blijft menselijke controle belangrijk?",
       "expected": "Normal answer and human-control telemetry."
+    },
+    {
+      "id": "T29",
+      "category": "knowledge-graph",
+      "question": "Hoe hangen Mediahuis, klantretentie en Salesforce samen in Frits' ervaring?",
+      "expected": "Should connect documented entities without inventing new facts."
+    },
+    {
+      "id": "T30",
+      "category": "knowledge-graph",
+      "question": "Hoe hangen Frits' AI-visie, automatisering en human-in-the-loop samen?",
+      "expected": "Should explain documented relationships and retain human control."
     }
   ]
 }
