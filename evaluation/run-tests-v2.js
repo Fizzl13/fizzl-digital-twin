@@ -85,6 +85,17 @@ function runHeuristic(test, data) {
     }
   }
 
+  if (test.category === "trace") {
+    if (!Array.isArray(data.trace) || data.trace.length < 5) {
+      return {status:"REVIEW", reason:"Safe public architecture trace is missing or incomplete."};
+    }
+    const stages = data.trace.map(x => x.stage);
+    const required = ["question","knowledge_retrieval","intent","decision","scenario","action_planning","response"];
+    if (!required.every(stage => stages.includes(stage))) {
+      return {status:"REVIEW", reason:"Trace does not contain all expected public stages."};
+    }
+  }
+
   if (test.category === "adaptive") {
     if (!data.responseMode) {
       return {status:"REVIEW", reason:"Adaptive response mode metadata is missing."};

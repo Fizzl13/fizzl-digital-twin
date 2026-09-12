@@ -1,3 +1,4 @@
+const { buildPublicTrace } = require('./public-trace');
 const { recordResponse, recordError, snapshot } = require('./observability');
 const { detectResponseMode } = require('./adaptive-response');
 
@@ -239,6 +240,17 @@ ${actionPlan}
 
   const cleanAnswer = stripModelMetadata(result.answer);
   const sources = displaySources(retrieved);
+  const publicTrace = buildPublicTrace({
+    retrievedCount: retrieved.length,
+    intent,
+    decisionGuidance,
+    scenarioFramework,
+    actionPlan,
+    responseMode: responseMode.mode,
+    trace: publicTrace,
+    confidence
+  });
+
   const humanControlDetected =
     /financ|rekening|menselijke controle|human control|human-in-the-loop|mens nodig|human judgment/i.test(cleanAnswer) ||
     /financ|rekening/i.test(question);
