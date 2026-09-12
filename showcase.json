@@ -21,7 +21,8 @@
     "Anti-hallucination rules",
     "Automated regression tests",
     "Server-side API key handling",
-    "Rate limiting and origin controls"
+    "Rate limiting and origin controls",
+    "Decision Engine — applies documented professional decision principles to practical scenarios."
   ],
   "demo_questions": [
     "Welke ervaring heeft Frits met klantretentie?",

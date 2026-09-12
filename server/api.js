@@ -3,6 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { retrieve, formatContext, detectIntent } = require("./vector-rag");
+const { formatGuidance } = require("./decision-engine");
 const {
   rateLimit, bodyAllowed, allowedOrigin, applySecurityHeaders, applyCorsHeaders
 } = require("./security");
@@ -165,6 +166,7 @@ async function handleChat(body) {
   const retrieved = retrieve(retrievalQuery, kb, 6);
   const context = formatContext(retrieved) || JSON.stringify(kb, null, 2);
   const confidence = estimateConfidence(question, retrieved);
+  const decisionGuidance = formatGuidance(question, kb);
 
   const system = `
 You are FIZZL DIGITAL TWIN — a professional AI representation of Frits Zwager.
@@ -198,6 +200,7 @@ SPECIAL CASES
 - Skills questions: group skills logically rather than listing unrelated sections.
 - AI questions: be especially precise about what is documented versus what is a broader positioning or concept.
 - Decision/approach questions: explain Frits’s documented decision model and use its sequence when relevant; do not invent numerical thresholds or policies.
+- For hypothetical "how would Frits approach this?" questions, apply the supplied DECISION GUIDANCE as a practical framework. Give the answer as a concise sequence of actions and clearly frame it as Frits’s documented approach, not as a claim about a real unseen case. Do not expose hidden chain-of-thought.
 - Projects questions: only name projects that are actually documented.
 - Unknown questions: be honest and brief; do not fill the gap with generic assumptions.
 - Greetings or casual conversation: respond naturally and briefly without forcing Knowledge Base facts.
@@ -208,6 +211,8 @@ Do not append confidence or source metadata to your answer; the application adds
 
 KNOWLEDGE BASE CONTEXT:
 ${context}
+
+${decisionGuidance}
 `.trim();
 
   const result = await callClaude(system, [
