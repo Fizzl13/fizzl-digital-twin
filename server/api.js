@@ -1,3 +1,4 @@
+const { detectResponseMode } = require('./adaptive-response');
 
 const http = require("http");
 const fs = require("fs");
@@ -171,6 +172,12 @@ async function handleChat(body) {
   const decisionGuidance = formatGuidance(question, kb);
   const scenarioFramework = formatScenario(question, kb);
   const actionPlan = formatActionPlan(question, kb);
+const responseMode = detectResponseMode({
+      question,
+      intent: decision?.type || intent,
+      scenario,
+      actionPlan
+    });
 
   const system = `
 You are FIZZL DIGITAL TWIN — a professional AI representation of Frits Zwager.
