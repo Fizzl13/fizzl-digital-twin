@@ -49,6 +49,12 @@ function runHeuristic(test, data) {
     }
   }
 
+  if (test.category === "follow-up-intelligence") {
+    if (typeof data.followUpResolved !== "boolean") {
+      return {status:"REVIEW", reason:"Follow-up resolution metadata is missing."};
+    }
+  }
+
   if (test.category === "follow-up") {
     if (!containsAny(answer, ["mediahuis","data","crm","salesforce","klantretentie","retentie"])) {
       return {status:"REVIEW", reason:"Follow-up answer may not have resolved the prior context."};

@@ -1,3 +1,4 @@
+const { resolveFollowUp } = require('./follow-up');
 const { buildGraphContext } = require('./knowledge-graph');
 const { buildPublicTrace } = require('./public-trace');
 const { recordResponse, recordError, snapshot } = require('./observability');
@@ -170,7 +171,12 @@ async function handleChat(body) {
   ].join(" ");
 
   const intent = detectIntent(question);
-  const retrieved = retrieve(retrievalQuery, kb, 6);
+  const followUpContext = resolveFollowUp({
+    question,
+    history: Array.isArray(history) ? history : []
+  });
+
+const retrieved = retrieve(retrievalQuery, kb, 6);
   const context = formatContext(retrieved) || JSON.stringify(kb, null, 2);
   const graphContext = buildGraphContext(question, ROOT_DIR);
   const confidence = estimateConfidence(question, retrieved);
@@ -224,6 +230,11 @@ SPECIAL CASES
 Current retrieval intent: ${intent}
 
 Do not append confidence or source metadata to your answer; the application adds that separately.
+
+FOLLOW-UP CONTEXT
+${followUpContext ? followUpContext.instruction : "No follow-up context detected."}
+Do not invent facts from prior turns; use prior context only to resolve what the user is referring to.
+END FOLLOW-UP CONTEXT
 
 KNOWLEDGE BASE CONTEXT:
 ${context}
@@ -279,6 +290,7 @@ ${actionPlan}
     confidence,
     responseMode: responseMode.mode,
     trace: publicTrace,
+    followUpResolved: Boolean(followUpContext?.resolved),
     conversationId
   };
 }

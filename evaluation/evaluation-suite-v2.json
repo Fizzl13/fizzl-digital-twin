@@ -181,6 +181,18 @@
       "category": "visual-pipeline",
       "question": "Wat zijn de belangrijkste skills van Frits?",
       "expected": "Frontend can render the safe trace returned by the API."
+    },
+    {
+      "id": "T31",
+      "category": "follow-up-intelligence",
+      "question": "En hoe gebruikte hij Salesforce daarbij?",
+      "expected": "Follow-up should remain anchored to the immediately preceding topic when session history exists."
+    },
+    {
+      "id": "T32",
+      "category": "follow-up-intelligence",
+      "question": "Kun je daar een concreet voorbeeld van geven?",
+      "expected": "Follow-up should resolve to the previous topic without inventing a new fact."
     }
   ]
 }
