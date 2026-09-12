@@ -12,7 +12,8 @@
     "Node.js",
     "HTML/CSS/JavaScript",
     "Automated evaluation",
-    "Security controls"
+    "Security controls",
+    "Action planning"
   ],
   "features": [
     "Grounded answers from a structured Knowledge Base",
@@ -23,7 +24,8 @@
     "Server-side API key handling",
     "Rate limiting and origin controls",
     "Decision Engine — applies documented professional decision principles to practical scenarios.",
-    "Scenario Engine — translates documented decision principles into practical business-process scenarios."
+    "Scenario Engine — translates documented decision principles into practical business-process scenarios.",
+    "Action Planner — turns grounded scenarios into practical steps with human-control gates."
   ],
   "demo_questions": [
     "Welke ervaring heeft Frits met klantretentie?",
@@ -31,6 +33,7 @@
     "Welke technische skills heeft Frits?",
     "What makes Frits a good fit for a Customer Success role?",
     "Hoe zou Frits een inefficiënt klantenserviceproces met AI aanpakken?",
-    "Hoe zou Frits bepalen welke klant als eerste aandacht nodig heeft?"
+    "Hoe zou Frits bepalen welke klant als eerste aandacht nodig heeft?",
+    "Maak een actieplan voor het automatiseren van een klantenserviceproces."
   ]
 }

@@ -5,6 +5,7 @@ const path = require("path");
 const { retrieve, formatContext, detectIntent } = require("./vector-rag");
 const { formatGuidance } = require("./decision-engine");
 const { formatScenario } = require("./scenario-engine");
+const { formatActionPlan } = require("./action-planner");
 const {
   rateLimit, bodyAllowed, allowedOrigin, applySecurityHeaders, applyCorsHeaders
 } = require("./security");
@@ -169,6 +170,7 @@ async function handleChat(body) {
   const confidence = estimateConfidence(question, retrieved);
   const decisionGuidance = formatGuidance(question, kb);
   const scenarioFramework = formatScenario(question, kb);
+  const actionPlan = formatActionPlan(question, kb);
 
   const system = `
 You are FIZZL DIGITAL TWIN — a professional AI representation of Frits Zwager.
@@ -217,6 +219,8 @@ ${context}
 ${decisionGuidance}
 
 ${scenarioFramework}
+
+${actionPlan}
 `.trim();
 
   const result = await callClaude(system, [
