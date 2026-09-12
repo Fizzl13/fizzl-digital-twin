@@ -1,10 +1,11 @@
-# Step 20 — Render deployment
+# Deployment — Step 28
 
-1. Upload/commit the contents of this ZIP to the existing `Fizzl13/fizzl-digital-twin` repository on the `main` branch.
-2. Wait for Render to show the new deployment as **Live**.
-3. Open `https://fizzl-digital-twin.onrender.com/`.
-4. The FIZZL Digital Twin UI should now load at the root URL.
-5. Test `https://fizzl-digital-twin.onrender.com/health`.
-6. Then test the chat with: `Welke ervaring heeft Frits met klantretentie?`
-
-No Render service settings need to be changed for this step.
+1. Upload/overwrite the repository files in GitHub.
+2. Keep the existing Render service and environment variables unchanged.
+3. Wait for Render to deploy and show **Live**.
+4. Test:
+   - `Welke ervaring heeft Frits met klantretentie?`
+   - `Wat heeft hij daar bereikt?`
+   - `Welke andere werkervaring heeft hij?`
+   - `Welke AI-ervaring heeft Frits?`
+5. Confirm that follow-up questions use the previous conversation naturally and do not repeat unrelated information.

@@ -1,5 +1,5 @@
-# FIZZL DIGITAL TWIN — Step 27
+# FIZZL DIGITAL TWIN — Step 28
 
-Precision Retrieval upgrade.
+Conversational AI Layer upgrade.
 
 Upload/overwrite the repository files with this package, then wait for Render to show Live.
