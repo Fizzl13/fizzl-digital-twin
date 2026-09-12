@@ -39,3 +39,7 @@ https://projects.fizzl.eu
 
 ## Author
 Frits Zwager — FIZZL
+
+
+## Step 26
+Smart confidence scoring now recognizes direct evidence in the strongest retrieved Knowledge Base result, so questions such as customer retention can correctly receive HIGH confidence when the evidence is explicit.

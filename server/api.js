@@ -117,11 +117,29 @@ function stripModelMetadata(answer) {
     .trim();
 }
 
-function estimateConfidence(retrieved) {
+function estimateConfidence(question, retrieved) {
   if (!retrieved?.length) return "LOW";
+
   const top = Number(retrieved[0].score || 0);
-  if (top >= 8 && retrieved.length >= 2) return "HIGH";
-  if (top >= 4) return "MEDIUM";
+  const normalizedQuestion = String(question || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  const topText = String(retrieved[0].text || retrieved[0].value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  // HIGH confidence when the retrieved evidence directly contains a meaningful
+  // term from the question, or when retrieval produces a strong multi-signal match.
+  const meaningfulTerms = normalizedQuestion
+    .split(/[^a-z0-9%]+/)
+    .filter(token => token.length >= 7);
+  const directMatch = meaningfulTerms.some(token => topText.includes(token));
+
+  if (directMatch && top >= 3.5) return "HIGH";
+  if (top >= 6) return "HIGH";
+  if (top >= 2.5) return "MEDIUM";
   return "LOW";
 }
 
@@ -144,7 +162,7 @@ async function handleChat(body) {
 
   const retrieved = retrieve(retrievalQuery, kb, 6);
   const context = formatContext(retrieved) || JSON.stringify(kb, null, 2);
-  const confidence = estimateConfidence(retrieved);
+  const confidence = estimateConfidence(question, retrieved);
 
   const system = `
 You are FIZZL DIGITAL TWIN — a professional AI representation of Frits Zwager.
