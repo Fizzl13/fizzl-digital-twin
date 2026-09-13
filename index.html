@@ -58,5 +58,35 @@
   </main>
 
   <script src="./js/app.js" defer></script>
+
+<section id="demo-panel" class="demo-panel" aria-label="About the Digital Twin">
+  <div class="demo-panel__header">
+    <span class="demo-kicker">PUBLIC DEMO</span>
+    <h2>How this Digital Twin works</h2>
+    <p>A grounded AI profile — designed to answer from documented knowledge rather than inventing a biography.</p>
+  </div>
+  <div class="demo-grid">
+    <div><h3>CAPABILITIES</h3><ul>
+      <li>Professional experience Q&amp;A</li>
+      <li>Knowledge retrieval &amp; follow-up context</li>
+      <li>Decision &amp; scenario analysis</li>
+      <li>Action planning with human-control gates</li>
+    </ul></div>
+    <div><h3>ARCHITECTURE</h3>
+      <p>Knowledge Base → Retrieval → Knowledge Graph → Decision → Scenario → Action → Response Guard</p>
+    </div>
+    <div><h3>GUARDRAILS</h3><ul>
+      <li>Grounded answers</li><li>Unknown facts stay unknown</li>
+      <li>Human control for judgment-heavy cases</li>
+      <li>No private prompts or hidden reasoning exposed</li>
+    </ul></div>
+  </div>
+  <div class="demo-examples">
+    <span>TRY:</span>
+    <button type="button" data-demo-question="Wat heeft Frits bij Mediahuis gedaan?">Mediahuis</button>
+    <button type="button" data-demo-question="Hoe gebruikt Frits AI in klantenservice?">AI &amp; customer service</button>
+    <button type="button" data-demo-question="Hoe zou Frits een klantproces efficiënter maken?">Process improvement</button>
+  </div>
+</section>
 </body>
 </html>

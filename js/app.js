@@ -211,3 +211,13 @@ addMessage(
 );
 
 checkHealth({maxWaitMs: 30000, pollMs: 5000});
+
+document.querySelectorAll("[data-demo-question]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const input = document.querySelector("#question, input[name='question'], textarea[name='question'], input[type='text']");
+    if (input) {
+      input.value = button.getAttribute("data-demo-question") || "";
+      input.focus();
+    }
+  });
+});

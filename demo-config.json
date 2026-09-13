@@ -1,0 +1,26 @@
+{
+  "title": "FIZZL DIGITAL TWIN",
+  "intro": "A grounded AI representation of Frits' professional experience, skills and working approach.",
+  "capabilities": [
+    "Professional experience Q&A",
+    "Knowledge retrieval",
+    "Decision and scenario analysis",
+    "Action planning with human-control gates",
+    "Contextual follow-up questions"
+  ],
+  "architecture": [
+    "Knowledge Base",
+    "Semantic Retrieval",
+    "Knowledge Graph",
+    "Decision Engine",
+    "Scenario Engine",
+    "Action Planner",
+    "Response Guard"
+  ],
+  "safety": [
+    "Grounded in documented knowledge",
+    "Unknown facts are not invented",
+    "Human control remains important for financial or judgment-heavy cases",
+    "Private prompts and hidden reasoning are not exposed"
+  ]
+}

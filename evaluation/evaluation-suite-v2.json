@@ -1,6 +1,6 @@
 {
   "name": "FIZZL Digital Twin Evaluation Suite",
-  "version": "2.6-hotfix",
+  "version": "2.7",
   "purpose": "Automated regression tests for grounding, retrieval, memory, decision guidance, scenario handling, action planning and hallucination resistance.",
   "scoring": {
     "PASS": "Response structure and automated expectations pass.",
@@ -206,5 +206,6 @@
       "question": "Wat is niet bekend over Frits?",
       "expected": "Response should avoid unsupported personal claims and remain grounded."
     }
-  ]
+  ],
+  "demo_mode": "public"
 }
