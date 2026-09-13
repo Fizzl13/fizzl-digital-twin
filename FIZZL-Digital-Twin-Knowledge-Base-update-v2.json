@@ -1,0 +1,75 @@
+{
+  "personal_profile": {
+    "birth_date": "1982-11-13",
+    "hobbies": [
+      "Mountainbiken",
+      "Golfsurfen"
+    ],
+    "children": 2,
+    "children_ages": [
+      4,
+      8
+    ]
+  },
+  "mediahuis": {
+    "systems": [
+      "Microsoft Dynamics",
+      "Advantage",
+      "Genesys",
+      "Salesforce"
+    ],
+    "project": {
+      "name": "Antwoord Redactie",
+      "problem": "De mailservice was omslachtig en duurde lang; doel was het eigen mailproces versnellen.",
+      "function": "Medewerker selecteert het type klantvraag/zaak waarna AI een passend conceptantwoord genereert. Het concept wordt gebruikt als basis voor het uiteindelijke klantantwoord.",
+      "knowledge": [
+        "Abonnementsvoorwaarden",
+        "Beleidsregels",
+        "Antwoordtemplates"
+      ],
+      "tone": "Per type klacht/melding aangepast vanuit hoe Frits zelf zou antwoorden.",
+      "main_benefit": "Benodigde informatie en functionaliteit staan in één app, zodat direct een antwoord kan worden gegenereerd.",
+      "result": "Snellere afwerktijden.",
+      "human_in_the_loop": "De medewerker controleert en gebruikt het AI-concept voor het uiteindelijke antwoord."
+    }
+  },
+  "work_and_ai_approach": {
+    "customer_priority": "Klanttevredenheid staat voorop. Klanten moeten zich gehoord voelen en het gevoel hebben dat hun probleem, vraag of klacht echt wordt aangepakt.",
+    "process_improvement": [
+      "Begin bij de kern van het probleem.",
+      "Bespreek met collega's of zij hetzelfde probleem herkennen.",
+      "Pas een oplossing toe.",
+      "Zet waar mogelijk AI in."
+    ],
+    "when_ai_not_used": [
+      "Vertrouwelijke informatie.",
+      "Zelfstandig nieuwe abonnementen activeren.",
+      "Zelfstandig abonnementen stopzetten."
+    ],
+    "human_control": "De daadwerkelijke uitvoering van belangrijke acties en het doel van de actie moeten door een mens worden gecontroleerd.",
+    "ai_quality": "De oplossing moet daadwerkelijk het probleem oplossen, technisch duidelijk zijn en gemakkelijk te gebruiken zijn.",
+    "failure_mode": "Als een eerste oplossing niet werkt, zoekt Frits andere wegen om het gewenste resultaat te bereiken.",
+    "collaboration": "Zelfstandig én samen met anderen; anderen kunnen inzichten hebben waar Frits zelf niet aan heeft gedacht.",
+    "learning": "Combinatie van experimenteren, cursussen/video's, documentatie, voorbeelden nabouwen en leren van fouten.",
+    "motivation": "Op zoek gaan naar de grenzen van wat er mogelijk is."
+  },
+  "career": {
+    "ai_ambition": "AI inzetten voor bedrijfsprocessen en voor alledaagse toepassingen die dingen makkelijker, sneller of eenvoudiger maken.",
+    "preferred_roles": [
+      "Junior AI Engineer",
+      "AI Automation Specialist",
+      "AI Consultant",
+      "AI Business / Process Specialist"
+    ],
+    "industry": "Branche is niet doorslaggevend.",
+    "process_priority": [
+      "Administratie",
+      "Klantenservice",
+      "Planning",
+      "Sales"
+    ],
+    "highest_priority_automation": "Verwerken van gegevens",
+    "recruiter_goal": "Dat een recruiter na een eerste kennismaking ziet dat Frits competent is voor de AI-rol waarop hij solliciteert.",
+    "portfolio_goal": "De Digital Twin is een sterk voorbeeldproject; meerdere projecten moeten uiteindelijk samen aantonen wat Frits kan en helpen bij het verkrijgen van een AI-baan."
+  }
+}
