@@ -53,3 +53,11 @@ input{min-width:0;flex:1;background:#080c0a;border:1px solid rgba(255,255,255,.1
 .recruiter-mode{margin:18px auto 28px;max-width:1180px;border:1px solid rgba(115,255,194,.18);padding:24px;background:rgba(8,12,12,.52)}
 .recruiter-mode__header{max-width:720px}.recruiter-mode h2{margin:.35rem 0 .5rem}
 .recruiter-questions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.recruiter-questions button{font:inherit;cursor:pointer}
+
+.proof-of-work{max-width:1180px;margin:18px auto 40px;padding:26px;border:1px solid rgba(115,255,194,.18);background:rgba(8,12,12,.48)}
+.proof-header{max-width:720px}.proof-header h2{margin:.35rem 0 .45rem}.proof-header p{margin:0}
+.proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.proof-card{padding:20px;border:1px solid rgba(115,255,194,.14);background:rgba(0,0,0,.22)}
+.proof-card h3{margin:.45rem 0 .55rem}.proof-card p{line-height:1.55}.proof-card strong{display:block;margin-top:12px}
+.proof-tag{font-size:.72rem;letter-spacing:.12em;opacity:.72}
+@media (max-width:700px){.proof-grid{grid-template-columns:1fr}}
