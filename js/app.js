@@ -221,3 +221,48 @@ document.querySelectorAll("[data-demo-question]").forEach((button) => {
     }
   });
 });
+
+
+// Step 50 — grounded recruiter role-fit view. This endpoint is deterministic and does not call the LLM.
+const roleFitResult = document.querySelector("#role-fit-result");
+const roleFitButtons = document.querySelectorAll("[data-role-fit]");
+
+function renderRoleFit(data) {
+  if (!roleFitResult) return;
+  const strengths = Array.isArray(data.strengths) ? data.strengths : [];
+  const gaps = Array.isArray(data.gaps) ? data.gaps : [];
+  roleFitResult.innerHTML = `
+    <div class="fit-panel">
+      <div class="fit-score"><h3>${escapeHtml(data.role || "Role")}</h3><strong>${escapeHtml(data.fit || "DOCUMENTED FIT")}</strong></div>
+      <div class="fit-cols">
+        <div><h4>DOCUMENTED STRENGTHS</h4><ul>${strengths.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
+        <div><h4>DOCUMENTED GAPS / LIMITS</h4>${gaps.length ? `<ul>${gaps.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>` : `<p>Geen relevante beperking in de beschikbare Knowledge Base.</p>`}</div>
+      </div>
+      <div class="fit-next"><strong>NEXT:</strong> ${escapeHtml(data.next || "")}</div>
+      <div class="fit-evidence">Evidence: ${escapeHtml(data.evidence?.project || "FIZZL Digital Twin")}</div>
+    </div>`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+}
+
+roleFitButtons.forEach(button => {
+  button.addEventListener("click", async () => {
+    roleFitButtons.forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    if (roleFitResult) roleFitResult.textContent = "Loading grounded role fit…";
+    try {
+      const response = await fetchWithTimeout(`${API_BASE}/api/role-fit`, {
+        method: "POST", headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({role: button.getAttribute("data-role-fit")})
+      }, 10000);
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
+      renderRoleFit(data);
+    } catch (error) {
+      if (roleFitResult) roleFitResult.textContent = "Role fit is temporarily unavailable.";
+      console.error(error);
+    }
+  });
+});

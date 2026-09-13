@@ -21,6 +21,7 @@ const { retrieve, formatContext, detectIntent } = require("./vector-rag");
 const { formatGuidance } = require("./decision-engine");
 const { formatScenario } = require("./scenario-engine");
 const { formatActionPlan } = require("./action-planner");
+const { getRoleFit } = require("./role-fit-engine");
 const {
   rateLimit, bodyAllowed, allowedOrigin, applySecurityHeaders, applyCorsHeaders
 } = require("./security");
@@ -424,6 +425,16 @@ const server = http.createServer(async (req, res) => {
       if (id) sessions.delete(id);
       res.writeHead(200);
       return res.end(JSON.stringify({ok: true}));
+    }
+
+
+    if (req.method === "POST" && url.pathname === "/api/role-fit") {
+      const body = await readJson(req);
+      const role = String(body.role || "junior_ai").slice(0, 40);
+      const kb = loadKnowledge();
+      const result = getRoleFit(role, kb);
+      res.writeHead(200);
+      return res.end(JSON.stringify(result));
     }
 
     if (req.method === "POST" && url.pathname === "/api/chat") {
