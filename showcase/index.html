@@ -17,6 +17,8 @@ h1 span{opacity:.35}
 a{color:#8ff0bd}
 .cta{display:inline-block;border:1px solid #65e8a8;padding:12px 18px;border-radius:8px;text-decoration:none;margin:8px 8px 8px 0}
 .small{font-size:13px;opacity:.6}
+
+.architecture{margin:58px 0 12px;padding-top:10px}.architecture h2{font-size:clamp(28px,5vw,48px);margin:.4rem 0}.architecture-lead{font-size:17px;max-width:760px}.architecture-flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:28px 0}.arch-node{flex:1 1 150px;min-width:150px;border:1px solid #263a32;border-radius:10px;padding:16px;background:#0b100e}.arch-node span{display:block;font-size:10px;letter-spacing:.16em;opacity:.5;margin-bottom:9px}.arch-node b{display:block;font-size:12px;letter-spacing:.08em}.arch-node small{display:block;margin-top:7px;font-size:12px;opacity:.62}.arch-arrow{display:grid;place-items:center;color:#65e8a8;font-size:22px}.architecture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.architecture-grid .card{margin:0}.architecture-grid .card b{letter-spacing:.08em;font-size:11px}@media(max-width:760px){.architecture-flow{display:grid;grid-template-columns:1fr}.arch-arrow{transform:rotate(90deg);height:20px}.architecture-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -32,6 +34,29 @@ a{color:#8ff0bd}
   <div class="card"><b>SECURITY</b>Server-side API key, rate limiting, origin controls and security headers.</div>
   <div class="card"><b>STACK</b>Claude API · Node.js · JavaScript · RAG · automated testing.</div>
 </div>
+
+
+<section class="architecture">
+  <div class="kicker">SYSTEM ARCHITECTURE</div>
+  <h2>How the Digital Twin works</h2>
+  <p class="lead architecture-lead">A practical AI pipeline that combines retrieval, decision guidance, scenario handling and action planning while keeping factual grounding and human control visible.</p>
+  <div class="architecture-flow">
+    <div class="arch-node"><span>01</span><b>QUESTION</b><small>Visitor asks a question</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node"><span>02</span><b>KNOWLEDGE RETRIEVAL</b><small>Relevant facts are retrieved</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node"><span>03</span><b>INTENT</b><small>Question type is classified</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node"><span>04</span><b>DECISION / SCENARIO</b><small>Documented principles are applied</small></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node"><span>05</span><b>AI RESPONSE</b><small>Grounded answer with sources</small></div>
+  </div>
+  <div class="architecture-grid">
+    <div class="card"><b>GROUNDING</b>Responses are constrained by the configured Knowledge Base and explicit unknown-information rules.</div>
+    <div class="card"><b>HUMAN CONTROL</b>Financial or judgement-heavy cases remain behind a human-control gate in the documented approach.</div>
+    <div class="card"><b>PROOF OF WORK</b>The system exposes confidence, sources and pipeline stages instead of presenting a black-box answer alone.</div>
+  </div>
+</section>
 
 <h2>Try the Digital Twin</h2>
 <p>Ask about customer success, sales, retention, startups, skills or working style.</p>
