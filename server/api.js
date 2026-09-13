@@ -1,3 +1,6 @@
+// AI_SKILLS_GROUNDING_V2
+// Distinguish formal qualifications from practical project evidence.
+// The FIZZL Digital Twin is a documented hands-on AI project and should not be described as nonexistent.
 const { validateResponse, buildGuardFallback } = require('./response-guard');
 const { resolveFollowUp } = require('./follow-up');
 const { buildGraphContext } = require('./knowledge-graph');

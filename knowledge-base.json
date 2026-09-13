@@ -284,5 +284,27 @@
       "Klanttevredenheid"
     ],
     "future_vision": "Een pratende Digital Twin die zo menselijk, empathisch en eerlijk mogelijk communiceert."
+  },
+  "ai_skills_evidence": {
+    "title": "Practical AI skills demonstrated by the FIZZL Digital Twin",
+    "formal_qualifications": "No formal AI certificates are documented.",
+    "practical_skills": [
+      "LLM / Generative AI integration",
+      "Claude API integration",
+      "Prompt engineering and grounding",
+      "RAG and semantic retrieval",
+      "Session/conversation memory",
+      "Knowledge Base structuring",
+      "Decision Engine design",
+      "Scenario Engine design",
+      "Action Planner design",
+      "Automated AI evaluation/testing",
+      "AI hallucination control and response guardrails",
+      "Human-in-the-loop workflow design",
+      "Node.js backend development",
+      "HTML/CSS/JavaScript frontend development",
+      "API integration and deployment"
+    ],
+    "evidence": "These skills are demonstrated through the documented FIZZL Digital Twin project and its implemented architecture; describe them as practical/project-based experience rather than formal certification."
   }
 }
