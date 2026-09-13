@@ -22,5 +22,16 @@
     "Unknown facts are not invented",
     "Human control remains important for financial or judgment-heavy cases",
     "Private prompts and hidden reasoning are not exposed"
-  ]
+  ],
+  "recruiter_mode": {
+    "title": "RECRUITER MODE",
+    "description": "Fast questions for recruiters and hiring managers.",
+    "questions": [
+      "Waarom is Frits geschikt voor een junior AI-positie?",
+      "Welke AI-skills heeft Frits opgebouwd?",
+      "Wat heeft Frits bij Mediahuis bereikt?",
+      "Wat laat de FIZZL Digital Twin technisch zien?",
+      "Hoe gebruikt Frits AI om bedrijfsprocessen te verbeteren?"
+    ]
+  }
 }

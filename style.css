@@ -49,3 +49,7 @@ input{min-width:0;flex:1;background:#080c0a;border:1px solid rgba(255,255,255,.1
 .demo-grid ul{margin:0;padding-left:18px}.demo-examples{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:22px}
 .demo-examples span{font-size:.7rem;letter-spacing:.12em;opacity:.7}.demo-examples button{font:inherit;cursor:pointer}
 @media(max-width:800px){.demo-grid{grid-template-columns:1fr}}
+
+.recruiter-mode{margin:18px auto 28px;max-width:1180px;border:1px solid rgba(115,255,194,.18);padding:24px;background:rgba(8,12,12,.52)}
+.recruiter-mode__header{max-width:720px}.recruiter-mode h2{margin:.35rem 0 .5rem}
+.recruiter-questions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.recruiter-questions button{font:inherit;cursor:pointer}
