@@ -103,7 +103,35 @@
       ],
       "learning_loop": "Feedback van medewerkers gebruiken wanneer zij AI-beslissingen aanpassen, zodat de agent zichzelf kan verbeteren en minder menselijke correcties nodig zijn."
     },
-    "future_vision": "De Digital Twin moet op termijn kunnen praten en zo menselijk, empathisch en eerlijk mogelijk antwoorden."
+    "future_vision": "De Digital Twin moet op termijn kunnen praten en zo menselijk, empathisch en eerlijk mogelijk antwoorden.",
+    "documented_ai_capabilities": [
+      "AI-implementatie in bedrijfsprocessen",
+      "Werken met Claude API binnen de FIZZL Digital Twin",
+      "RAG / semantic retrieval",
+      "Session memory",
+      "Node.js backend",
+      "HTML/CSS/JavaScript frontend",
+      "Automated evaluation en testlagen",
+      "Security controls voor een publieke AI-applicatie",
+      "Decision Engine, Scenario Engine en Action Planner binnen de Digital Twin"
+    ],
+    "project_evidence_note": "De FIZZL Digital Twin is zelf een concreet, gedocumenteerd AI-project in ontwikkeling. De technische stack en architectuur zijn in de Knowledge Base vastgelegd; dit is iets anders dan een formeel AI-certificaat.",
+    "search_terms": [
+      "AI skills",
+      "AI-implementatie",
+      "AI project",
+      "Digital Twin",
+      "Claude API",
+      "RAG",
+      "semantic retrieval",
+      "Node.js",
+      "JavaScript",
+      "automated evaluation",
+      "security controls",
+      "Decision Engine",
+      "Scenario Engine",
+      "Action Planner"
+    ]
   },
   "projects": {
     "documented_projects": [
