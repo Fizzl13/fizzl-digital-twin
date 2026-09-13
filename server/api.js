@@ -181,7 +181,16 @@ async function handleChat(body) {
   });
 
 const retrieved = retrieve(retrievalQuery, kb, 6);
-  const context = formatContext(retrieved) || JSON.stringify(kb, null, 2);
+
+  // Recruiter-facing AI skills questions need the structured project evidence even when
+  // semantic retrieval ranks other CV material higher. This prevents the model from
+  // incorrectly concluding that no concrete AI project exists.
+  const normalizedQuestion = question.toLowerCase();
+  const isAiSkillsQuestion = /\b(ai[- ]?skills?|kunstmatige intelligentie|vaardigheden.*ai|ai.*vaardigheden)\b/i.test(normalizedQuestion);
+  let context = formatContext(retrieved) || JSON.stringify(kb, null, 2);
+  if (isAiSkillsQuestion && kb.ai_skills_evidence) {
+    context += `\n\nAI SKILLS EVIDENCE (PRIORITY FOR THIS QUESTION):\n${JSON.stringify(kb.ai_skills_evidence, null, 2)}`;
+  }
   const graphContext = buildGraphContext(question, ROOT_DIR);
   const confidence = estimateConfidence(question, retrieved);
   const decisionGuidance = formatGuidance(question, kb);
@@ -224,7 +233,7 @@ SPECIAL CASES
 - Work experience / jobs: give employer, role and period directly, then relevant achievements only if useful.
 - Achievement questions: lead with the achievement and its documented result/metric.
 - Skills questions: group skills logically rather than listing unrelated sections.
-- AI questions: distinguish formal certificates from documented hands-on AI project skills. The FIZZL Digital Twin and its documented stack may be described as a concrete AI project; never imply a certificate or level of expertise that is not documented.
+- AI questions: distinguish formal certificates from documented hands-on AI project skills. For questions specifically asking which AI skills Frits has built, lead with the practical skills demonstrated by the FIZZL Digital Twin. Do not lead with the absence of certificates. State clearly that these are project-based skills, then group the documented technologies and AI-engineering capabilities. The FIZZL Digital Twin is a concrete hands-on AI project and must not be described as if no AI project exists. Never imply a certificate or level of expertise that is not documented.
 - Decision/approach questions: explain Frits’s documented decision model and use its sequence when relevant; do not invent numerical thresholds or policies.
 - For hypothetical "how would Frits approach this?" questions, apply the supplied DECISION GUIDANCE as a practical framework. Give the answer as a concise sequence of actions and clearly frame it as Frits’s documented approach, not as a claim about a real unseen case. Do not expose hidden chain-of-thought.
 - Projects questions: only name projects that are actually documented.

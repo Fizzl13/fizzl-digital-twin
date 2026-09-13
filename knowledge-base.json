@@ -305,6 +305,7 @@
       "HTML/CSS/JavaScript frontend development",
       "API integration and deployment"
     ],
-    "evidence": "These skills are demonstrated through the documented FIZZL Digital Twin project and its implemented architecture; describe them as practical/project-based experience rather than formal certification."
+    "evidence": "These skills are demonstrated through the documented FIZZL Digital Twin project and its implemented architecture; describe them as practical/project-based experience rather than formal certification.",
+    "recruiter_summary": "Frits has practical, project-based AI experience demonstrated by building the FIZZL Digital Twin. The documented stack covers LLM/Generative AI, Claude API integration, prompt engineering and grounding, RAG/semantic retrieval, session memory, Knowledge Base design, Decision/Scenario/Action engines, automated evaluation, guardrails, human-in-the-loop workflows, Node.js, HTML/CSS/JavaScript, API integration and deployment."
   }
 }
