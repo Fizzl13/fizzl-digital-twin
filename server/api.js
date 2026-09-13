@@ -1,3 +1,9 @@
+
+// RECRUITER_ANSWER_STYLE_V1
+// For recruiter/hiring-manager questions, lead with the strongest documented evidence.
+// Prefer a concise structure: direct answer -> 3-6 concrete evidence bullets -> honest qualification note.
+// Do not lead with missing certificates or limitations when practical project evidence directly answers the question.
+// Never invent seniority, certificates, employers, metrics, tools, or qualifications.
 // AI_SKILLS_GROUNDING_V2
 // Distinguish formal qualifications from practical project evidence.
 // The FIZZL Digital Twin is a documented hands-on AI project and should not be described as nonexistent.
