@@ -1,10 +1,9 @@
-function validateResponse(answer = "", context = "") {
+function validateResponse(answer = "") {
   const text = String(answer || "").trim();
   const issues = [];
   if (!text) issues.push("empty_response");
   if (text.length > 12000) issues.push("response_too_long");
 
-  // Conservative safety checks for common unsupported-fact patterns.
   const forbidden = [
     /\bI (?:know|remember) that you\b/i,
     /\bI (?:personally|actually) (?:did|worked|built)\b/i,
@@ -12,11 +11,7 @@ function validateResponse(answer = "", context = "") {
   ];
   if (forbidden.some(rx => rx.test(text))) issues.push("unsupported_personal_claim");
 
-  return {
-    ok: issues.length === 0,
-    issues,
-    length: text.length
-  };
+  return { ok: issues.length === 0, issues, length: text.length };
 }
 
 function buildGuardFallback() {

@@ -92,11 +92,6 @@ async function callClaude(system, messages) {
   if (!response.ok) throw new Error(data?.error?.message || "Claude request failed");
   const answer = (data.content || [])
     .filter(x => x.type === "text").map(x => x.text).join("\n").trim();
-  const responseGuard = validateResponse(answer, context);
-  if (!responseGuard.ok) {
-    answer = buildGuardFallback();
-  }
-
 
   return {answer: stripModelMetadata(answer), sources: ["knowledge-base.json"]};
 }
@@ -260,6 +255,8 @@ ${actionPlan}
   ]);
 
   const cleanAnswer = stripModelMetadata(result.answer);
+  const responseGuard = validateResponse(cleanAnswer);
+  const guardedAnswer = responseGuard.ok ? cleanAnswer : buildGuardFallback();
   const sources = displaySources(retrieved);
   const publicTrace = buildPublicTrace({
     retrievedCount: retrieved.length,
@@ -291,14 +288,14 @@ ${actionPlan}
   });
 
   return {
-    answer: cleanAnswer,
+    answer: guardedAnswer,
     sources,
     confidence,
     responseMode: responseMode.mode,
     trace: publicTrace,
     followUpResolved: Boolean(followUpContext?.resolved),
-        responseGuard: responseGuard || { ok: true, issues: [], length: String(answer || '').length },
-conversationId
+    responseGuard,
+    conversationId
   };
 }
 
